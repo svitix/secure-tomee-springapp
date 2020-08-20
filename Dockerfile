@@ -1,5 +1,5 @@
 FROM bellsoft/liberica-openjdk-centos:8u232-10
-
+ARG adminuser=admin
 
 ADD ./bellsoft-tomee-plus8.noarch.rpm /bellsoft-tomee-plus8.noarch.rpm
 
@@ -16,7 +16,6 @@ WORKDIR /opt/bellsoft/tomee/8.0.0/
 COPY tomee/context.xml webapps/manager/META-INF/
 
 COPY target/*.war webapps/ROOT.war
-
 
 CMD ["catalina.sh","run"]
 
