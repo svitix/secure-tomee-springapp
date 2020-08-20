@@ -14,20 +14,20 @@ WORKDIR /opt/bellsoft/tomee/8.0.0/
 
 
 COPY tomee/tomcat-users.xml conf/tomcat-users.xml
-
 RUN sed -i "s|tomeeuser|$ADMIN_USER|g" conf/tomcat-users.xml
-RUN bin/digest.sh -a "sha-256" $ADMIN_PASSWORD | cat -d ":" -f2
-#TODO Need more secure for put hash to users file.
-#RUN sed -i "s|tomeepassword|$(bin/digest.sh -a "sha-256" $ADMIN_PASSWORD | cat -d ":" -f2)|g" conf/tomcat-users.xml
+RUN sed -i "s|tomeepassword|$(bin/digest.sh -a "sha-256" -s 0 $ADMIN_PASSWORD | cut -d ":" -f2)|g" conf/tomcat-users.xml
+
+COPY tomee/server.xml conf/server.xml
+COPY tomee/web.xml conf/web.xml
 
 
 # RUN rm -rf webapps/
 # RUN rm -rf apps/
 
 # not necessary if everything was deleted (command RUN rm -f)
-COPY tomee/context.xml webapps/manager/META-INF/
+COPY tomee/context-manager.xml webapps/manager/META-INF/context.xml
 
-COPY target/*.war webapps/ROOT.war
+COPY target/*.war webapps/demo.war
 
 CMD ["catalina.sh","run"]
 
