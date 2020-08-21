@@ -103,6 +103,10 @@
             <param-name>listings</param-name>
             <param-value>false</param-value>
         </init-param>
+        <init-param>
+            <param-name>readonly</param-name>
+            <param-value>true</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -1215,8 +1219,8 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <login-config>
+<!--    <login-config>
         <auth-method>DIGEST</auth-method>
         <realm-name>UserDatabase</realm-name>
-    </login-config>
+    </login-config>-->
 </web-app>
