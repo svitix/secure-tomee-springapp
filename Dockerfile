@@ -32,3 +32,4 @@ COPY target/*.war webapps/demo.war
 CMD ["catalina.sh","run"]
 
 EXPOSE 8080
+EXPOSE 8005
