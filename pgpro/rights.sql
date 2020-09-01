@@ -14,7 +14,7 @@ DROP ROLE IF EXISTS eko;
 -- eko
 create role eko;
 alter role eko login;
-alter role eko encrypted password '4321';
+alter role eko password '4321';
 
 
 -- eko database
