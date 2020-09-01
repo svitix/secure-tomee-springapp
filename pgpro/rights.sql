@@ -1,4 +1,3 @@
-
 -- clean
 DROP TABLE IF EXISTS work.test;
 DROP SCHEMA IF EXISTS work;
@@ -8,9 +7,7 @@ DROP ROLE IF EXISTS ekoupdateui;
 DROP ROLE IF EXISTS ekoadminui;
 DROP ROLE IF EXISTS ekoadmin;
 DROP ROLE IF EXISTS ekoupdate;
-
 DROP ROLE IF EXISTS auditor;
-
 DROP ROLE IF EXISTS eko;
 
 
@@ -19,9 +16,9 @@ create role eko;
 alter role eko login;
 alter role eko encrypted password '4321';
 
+
 -- eko database
 create database eko with owner eko;
-
 grant connect on database eko to eko;
 
 
@@ -34,35 +31,20 @@ CREATE SCHEMA work AUTHORIZATION eko;
 create table work.test(id int);
 alter table work.test owner to eko;
 
-
-
-
--- ekoadmin
 create role ekoadmin;
-grant eko to ekoadmin;
-revoke all on database eko from ekoadmin;
-grant connect on database eko to ekoadmin;
-grant all privileges on schema work to ekoadmin;
-grant all privileges on table work.test to ekoadmin;
-
-create role ekoadminui;
-grant ekoadmin to ekoadminui;
-alter role ekoadminui login;
-alter role ekoadminui password '4321';
-
-
-
---ekoupdate
 create role ekoupdate;
-revoke all on database eko from ekoupdate;
-grant connect on database eko to ekoupdate;
-revoke all on database eko from ekoupdate;
---grant all privileges on table work.test to ekoupdate;
 
-create role ekoupdateui;
+grant eko to ekoadmin, ekoupdate;
+revoke all on database eko from ekoadmin, ekoupdate;
+grant connect on database eko to ekoadmin, ekoupdate;
+grant all privileges on schema work to ekoadmin, ekoupdate;
+
+create role ekoadminui LOGIN PASSWORD '4321';
+create role ekoupdateui LOGIN PASSWORD '4321';
+
+grant ekoadmin to ekoadminui;
 grant ekoupdate to ekoupdateui;
-alter role ekoupdateui login;
-alter role ekoupdateui password '4321';
+
 
 -- audit
 create role auditor;
