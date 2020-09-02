@@ -46,7 +46,7 @@ RUN cat /tmp/pgaudit.conf >> /var/lib/pgpro/std-12/data/postgresql.conf && rm -f
 
 
 # 
-#	direct login for eko
+#	direct login for kkk
 #
 RUN git clone https://github.com/splendiddata/login_hook.git && \
 	cd ./login_hook && \

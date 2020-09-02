@@ -1,55 +1,55 @@
 -- clean
 DROP TABLE IF EXISTS work.test;
 DROP SCHEMA IF EXISTS work;
-DROP DATABASE IF EXISTS eko;
+DROP DATABASE IF EXISTS kkk;
 
-DROP ROLE IF EXISTS ekoupdateui;
-DROP ROLE IF EXISTS ekoadminui;
-DROP ROLE IF EXISTS ekoadmin;
-DROP ROLE IF EXISTS ekoupdate;
+DROP ROLE IF EXISTS kkkupdateui;
+DROP ROLE IF EXISTS kkkadminui;
+DROP ROLE IF EXISTS kkkadmin;
+DROP ROLE IF EXISTS kkkupdate;
 DROP ROLE IF EXISTS auditor;
-DROP ROLE IF EXISTS eko;
+DROP ROLE IF EXISTS kkk;
 
 
--- eko
-create role eko;
-alter role eko login;
-alter role eko password '4321';
+-- kkk
+create role kkk;
+alter role kkk login;
+alter role kkk password '4321';
 
 
--- eko database
-create database eko with owner eko;
-grant connect on database eko to eko;
+-- kkk database
+create database kkk with owner kkk;
+grant connect on database kkk to kkk;
 
 
 REVOKE ALL ON schema public FROM public;
 -- if not needed
-revoke all on database eko from public;
+revoke all on database kkk from public;
 
-\c eko
-CREATE SCHEMA work AUTHORIZATION eko;
+\c kkk
+CREATE SCHEMA work AUTHORIZATION kkk;
 create table work.test(id int);
-alter table work.test owner to eko;
+alter table work.test owner to kkk;
 
-create role ekoadmin;
-create role ekoupdate;
+create role kkkadmin;
+create role kkkupdate;
 
-grant eko to ekoadmin, ekoupdate;
-revoke all on database eko from ekoadmin, ekoupdate;
-grant connect on database eko to ekoadmin, ekoupdate;
-grant all privileges on schema work to ekoadmin, ekoupdate;
+grant kkk to kkkadmin, kkkupdate;
+revoke all on database kkk from kkkadmin, kkkupdate;
+grant connect on database kkk to kkkadmin, kkkupdate;
+grant all privileges on schema work to kkkadmin, kkkupdate;
 
-create role ekoadminui LOGIN PASSWORD '4321';
-create role ekoupdateui LOGIN PASSWORD '4321';
+create role kkkadminui LOGIN PASSWORD '4321';
+create role kkkupdateui LOGIN PASSWORD '4321';
 
-grant ekoadmin to ekoadminui;
-grant ekoupdate to ekoupdateui;
+grant kkkadmin to kkkadminui;
+grant kkkupdate to kkkupdateui;
 
 
 -- audit
 create role auditor;
 grant select on table work.test to auditor;
-grant auditor to ekoadmin;  
-grant auditor to ekoupdate;  
+grant auditor to kkkadmin;  
+grant auditor to kkkupdate;  
 
 --удалить из search_path схему public;
